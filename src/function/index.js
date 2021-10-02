@@ -1,8 +1,10 @@
-import fs from 'fs';
-export function ExportAds(file) {
-    // sky, paint, juice, 
-    const gameName = "bino2";
-    const idea = "Saveprincess_MultiChar";
+const fs = window.require('fs');
+
+export async function ExportAds(file, nameGame, ideaGame, dirSave) {
+    const gameName = nameGame;
+    const idea = ideaGame;
+    const upFolder = `${dirSave}/Build`;
+    await fs.mkdirSync(upFolder);
 
     const network = ['AppLovin', "Google", "Unity", "Mintegral", "Iron", "Tiktok"];
     let linkGameIos;
@@ -36,9 +38,8 @@ export function ExportAds(file) {
         }
     }
 
-    const upFolder = './../build';
 
-    fs.readFile("../Bino1.html", 'utf8', function (err, data) {
+    fs.readFile(`${file.path}`, 'utf8', async function (err, data) {
         if (err) {
             return console.log(err);
         }
@@ -48,9 +49,9 @@ export function ExportAds(file) {
             switch (network[i]) {
                 case "AppLovin":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
@@ -84,16 +85,16 @@ export function ExportAds(file) {
     
                         }
                    ;`)
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }
                     break;
                 case "Google":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
@@ -118,7 +119,7 @@ export function ExportAds(file) {
                         window.open(device == "Android" ? linkGameAndroid : linkGameIos)
                    ;`)
 
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }
@@ -126,9 +127,9 @@ export function ExportAds(file) {
 
                 case "Unity":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
@@ -163,7 +164,7 @@ export function ExportAds(file) {
                         }
                     `)
 
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }
@@ -171,9 +172,9 @@ export function ExportAds(file) {
 
                 case "Mintegral":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
@@ -188,7 +189,7 @@ export function ExportAds(file) {
                             function gameClose() { };
                             `)
 
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }
@@ -196,9 +197,9 @@ export function ExportAds(file) {
 
                 case "Iron":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
@@ -272,23 +273,23 @@ export function ExportAds(file) {
                 }
                 `);
 
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }
                     break;
                 case "Tiktok":
                     try {
-                        var dir = `${upFolder}/${network[i]}`;
+                        const dir = `${upFolder}/${network[i]}`;
                         if (!fs.existsSync(dir)) {
-                            fs.mkdirSync(dir);
+                            await fs.mkdirSync(dir);
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
                             .replace(`<!-- TIKTOK -->`, `<script src="https://sf16-muse-va.ibytedtos.com/obj/union-fe-nc-i18n/playable/sdk/playable-sdk.js"></script>`)
                             .split(`console.log("GOTOSTORE")`).join(`window.playableSDK.openAppStore();`)
 
-                        fs.writeFile(`./${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
+                        fs.writeFile(`${dir}/${date}_PA_${gameName}_${idea}.html`, result, 'utf8', function (err) {
                             if (err) return console.log(err);
                         });
                     } catch { console.log(`error in network: ${network[i]}`) }

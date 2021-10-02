@@ -1,21 +1,25 @@
 import React from "react";
 import {
     Button,
-    TextInput,
-    SelectField,
-    TextInputField,
-    toaster,
-} from "evergreen-ui";
+    FormControl,
+    FormLabel,
+    Select,
+    Input,
+    useToast,
+} from "@chakra-ui/react";
 import { SaveToContainer } from "./styles";
 import { remote } from "electron";
 import { connect } from "react-redux";
-import { SaveDirectotyAction } from "../../action";
+import { SaveDirectoryAction } from "../../action";
+import { ExportAds } from "../../function";
 let dialog = remote.dialog;
 const ButtonSave = (props) => {
-    const { saveDirectory } = props;
+    const toast = useToast();
+    const { saveDirectory, fileStore } = props;
     const [directoryState, setDirectoryState] = React.useState("None Selected");
     const [nameGameState, setNameGameState] = React.useState("sky");
     const [ideaGameState, setIdeaGameState] = React.useState("");
+
     const handleDirectory = async () => {
         const result = await dialog.showOpenDialog({
             properties: ["openDirectory"],
@@ -30,62 +34,104 @@ const ButtonSave = (props) => {
     const handlIdeaGame = (e) => {
         setIdeaGameState(e.target.value);
     };
+    const ResetFeild = () => {
+        setIdeaGameState("sky");
+        setIdeaGameState("");
+        setDirectoryState("None Selected");
+    };
     const handleExportAds = () => {
-        toaster.success("Export Ads Successfully!", {
-            id: "forbidden-action",
-        });
+        console.log(!fileStore);
+        if (!fileStore) {
+            toast({
+                title: "Please Choose File!",
+                status: "warning",
+                position: "top",
+                duration: 4000,
+                isClosable: true,
+            });
+        } else if (
+            !nameGameState ||
+            !ideaGameState ||
+            directoryState == "None Selected"
+        ) {
+            toast({
+                title: "Please complete all fields!",
+                status: "warning",
+                position: "top",
+                duration: 4000,
+                isClosable: true,
+            });
+        } else {
+            ExportAds(fileStore, nameGameState, ideaGameState, directoryState);
+            toast({
+                title: "Export Ads successfully!",
+                status: "success",
+                position: "top",
+                duration: 4000,
+                isClosable: true,
+            });
+            ResetFeild();
+        }
     };
     return (
         <SaveToContainer>
             <div className="setup">
                 <div className="name-idea">
-                    <SelectField
-                        isInvalid
-                        required
-                        label="Choose Game"
-                        validationMessage="This field is required"
-                        onChange={handleNameGame}
-                        value={nameGameState}
-                    >
-                        <option value="sky">Sky</option>
-                        <option value="bino1">Bino1</option>
-                        <option value="bino2">Bino2</option>
-                        <option value="mano">Mano</option>
-                        <option value="paint">Paint</option>
-                        <option value="juice">Juice</option>
-                        <option value="bl">Beauty&Love</option>
-                    </SelectField>
-                    <TextInputField
-                        isInvalid
-                        required
-                        label="Idea for game"
-                        placeholder="Ex: Sky solo squad..."
-                        validationMessage="This field is required"
-                        onChange={handlIdeaGame}
-                        value={ideaGameState}
-                    />
+                    <FormControl isRequired id="country">
+                        <FormLabel>Select Game</FormLabel>
+                        <Select
+                            placeholder="Select Game"
+                            onChange={handleNameGame}
+                            value={nameGameState}
+                        >
+                            <option value="sky">Sky</option>
+                            <option value="bino1">Bino1</option>
+                            <option value="bino2">Bino2</option>
+                            <option value="mano">Mano</option>
+                            <option value="paint">Paint</option>
+                            <option value="juice">Juice</option>
+                            <option value="bl">Beauty&Love</option>
+                        </Select>
+                    </FormControl>
+                    <FormControl id="ideaGame" isRequired>
+                        <FormLabel>Idea for game</FormLabel>
+                        <Input
+                            placeholder="Ex: Sky solo squad..."
+                            onChange={handlIdeaGame}
+                            value={ideaGameState}
+                        />
+                    </FormControl>
                 </div>
                 <div>
-                    <TextInput disabled value={directoryState} />
-                    <Button marginLeft={16} onClick={handleDirectory}>
+                    <Input
+                        isDisabled
+                        placeholder="medium size"
+                        size="md"
+                        value={directoryState}
+                    />
+                    <Button
+                        colorScheme="teal"
+                        variant="outline"
+                        onClick={handleDirectory}
+                    >
                         Save to ...
                     </Button>
                 </div>
             </div>
-            <Button
-                marginTop={50}
-                appearance="primary"
-                size="large"
-                onClick={handleExportAds}
-            >
+            <Button colorScheme="teal" size="lg" onClick={handleExportAds}>
                 Export Ads
             </Button>
         </SaveToContainer>
     );
 };
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        saveDirectory: (data) => dispatch(SaveDirectotyAction(data)),
+        fileStore: state.file,
     };
 };
-export default connect(null, mapDispatchToProps)(ButtonSave);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        saveDirectory: (data) => dispatch(SaveDirectoryAction(data)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ButtonSave);
