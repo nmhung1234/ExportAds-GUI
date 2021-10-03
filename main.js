@@ -35,7 +35,7 @@ function createMainWindow() {
 			slashes: true,
 		})
 	} else {
-		indexPath = url.format({
+		indexPath = process.env.ELECTRON_START_URL || url.format({
 			protocol: 'file:',
 			pathname: path.join(__dirname, 'dist', 'index.html'),
 			slashes: true,

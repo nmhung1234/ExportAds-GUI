@@ -77,7 +77,7 @@ const ButtonSave = (props) => {
         <SaveToContainer>
             <div className="setup">
                 <div className="name-idea">
-                    <FormControl isRequired id="country">
+                    <FormControl isRequired id="country" className="mgr30">
                         <FormLabel>Select Game</FormLabel>
                         <Select
                             placeholder="Select Game"
@@ -102,8 +102,9 @@ const ButtonSave = (props) => {
                         />
                     </FormControl>
                 </div>
-                <div>
+                <div className="save-dir">
                     <Input
+                        className="mgr30"
                         isDisabled
                         placeholder="medium size"
                         size="md"
