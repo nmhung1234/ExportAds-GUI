@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChakraProvider } from "@chakra-ui/react"
-import DragDrop from './components/DragDrop/index.jsx';
-import ButtonSave from './components/SaveTo/index.jsx';
+import DragDrop from './DragDrop/index.jsx';
+import ButtonSave from './SaveTo/index.jsx';
 
 
 const App = () => {
