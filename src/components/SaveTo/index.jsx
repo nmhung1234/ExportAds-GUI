@@ -16,7 +16,7 @@ let dialog = remote.dialog;
 const ButtonSave = (props) => {
     const toast = useToast();
     const { saveDirectory, fileStore } = props;
-    const [directoryState, setDirectoryState] = React.useState("None Selected");
+    const [directoryState, setDirectoryState] = React.useState("Not selected yet");
     const [nameGameState, setNameGameState] = React.useState("sky");
     const [ideaGameState, setIdeaGameState] = React.useState("");
 
@@ -37,7 +37,7 @@ const ButtonSave = (props) => {
     const ResetFeild = () => {
         setIdeaGameState("sky");
         setIdeaGameState("");
-        setDirectoryState("None Selected");
+        setDirectoryState("Not selected yet");
     };
     const handleExportAds = () => {
         console.log(!fileStore);
@@ -52,7 +52,7 @@ const ButtonSave = (props) => {
         } else if (
             !nameGameState ||
             !ideaGameState ||
-            directoryState == "None Selected"
+            directoryState == "Not selected yet"
         ) {
             toast({
                 title: "Please complete all fields!",
