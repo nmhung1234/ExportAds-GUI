@@ -183,7 +183,7 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
                                         window.gameEnd && window.gameEnd();
     
                                         `)
-                            .replace("//MINTE", `
+                            .replace("// MINTE", `
                             function gameStart() { };
                             window.gameReady && window.gameReady();
                             function gameClose() { };
@@ -228,7 +228,7 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
     
                 dapi.openStoreUrl(device == "Android" ? linkGameAndroid : linkGameIos);
             `)
-                            .replace("//IRON2", `
+                            .replace("// IRON2", `
                             
                 window.onload = function(){
                     (dapi.isReady()) ? onReadyCallback() : dapi.addEventListener("ready", onReadyCallback);	
@@ -302,4 +302,12 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
 
     });
 
+}
+export async function ReplaceTileset(file) {
+    fs.readFile(file, 'utf8',async  function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        
+    })
 }

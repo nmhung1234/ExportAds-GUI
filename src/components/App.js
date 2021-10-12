@@ -1,7 +1,8 @@
 import React from 'react';
 import { ChakraProvider } from "@chakra-ui/react"
 import DragDrop from './DragDrop/index.jsx';
-import ButtonSave from './SaveTo/index.jsx';
+import SaveTo from './SaveTo/index.jsx';
+import ReplaceTileset from './ReplaceTileset/index.jsx';
 
 
 const App = () => {
@@ -9,7 +10,8 @@ const App = () => {
 		<div className='app'>
 			<ChakraProvider>
 				<DragDrop />
-				<ButtonSave />
+				<ReplaceTileset />
+				<SaveTo />
 			</ChakraProvider>
 		</div>
 	)

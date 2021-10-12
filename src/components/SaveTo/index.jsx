@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { SaveDirectoryAction } from "../../action";
 import { ExportAds } from "../../function";
 let dialog = remote.dialog;
-const ButtonSave = (props) => {
+const SaveTo = (props) => {
     const toast = useToast();
     const { saveDirectory, fileStore } = props;
     const [directoryState, setDirectoryState] = React.useState("Not selected yet");
@@ -135,4 +135,4 @@ const mapDispatchToProps = (dispatch) => {
         saveDirectory: (data) => dispatch(SaveDirectoryAction(data)),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ButtonSave);
+export default connect(mapStateToProps, mapDispatchToProps)(SaveTo);
