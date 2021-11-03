@@ -91,6 +91,7 @@ const SaveTo = (props) => {
                             <option value="paint">Paint</option>
                             <option value="juice">Juice</option>
                             <option value="bl">Beauty&Love</option>
+                            <option value="match3d">Match 3D</option>
                         </Select>
                     </FormControl>
                     <FormControl id="ideaGame" isRequired>

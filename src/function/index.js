@@ -33,6 +33,9 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
         } else if (gameName.toLowerCase() == 'bl') {
             linkGameIos = "";
             linkGameAndroid = "https://play.google.com/store/apps/details?id=com.monster.beautyandlove.trickypuzzle";
+        }else if (gameName.toLowerCase() == 'match3d') {
+            linkGameIos = "";
+            linkGameAndroid = "https://play.google.com/store/apps/details?id=com.monster.match3d.puzzlegame";
         } else {
             console.log("Lỗi tên game");
         }
