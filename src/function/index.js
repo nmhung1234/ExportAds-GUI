@@ -36,6 +36,9 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
         }else if (gameName.toLowerCase() == 'match3d') {
             linkGameIos = "";
             linkGameAndroid = "https://play.google.com/store/apps/details?id=com.monster.match3d.puzzlegame";
+        }else if (gameName.toLowerCase() == 'fino') {
+            linkGameIos = "https://apps.apple.com/us/app/finnos-adventures/id1590956216";
+            linkGameAndroid = "";
         } else {
             console.log("Lỗi tên game");
         }
@@ -101,6 +104,8 @@ export async function ExportAds(file, nameGame, ideaGame, dirSave) {
                         }
                         var result = data
                             .replace(`background: #171717 url(./splash.png) no-repeat center`, `background: #171717`)
+                            .replace("<!-- GOOGLE -->", `<meta name="ad.size" content="width=320,height=480">`)
+                            .replace(`<link rel="icon" href="favicon.ico" />`, "")
                             .split(`console.log("GOTOSTORE")`).join(`
                     let device = "Android";
                     const linkGameIos = "${linkGameIos}";
